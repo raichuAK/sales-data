@@ -5,11 +5,6 @@ import { currencyFormatter, avgPriceListFormatter, makePercentFormatter, top5Per
 
 const apiRouter = express.Router();
 
-async function getChildrenData(parentId) {
-  const db = new APIService();
-  const result = await db.getChildren(parentId);
-  return result;
-}
 
 apiRouter.get('/avgPrice/', async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
