@@ -1,11 +1,9 @@
-# Render tree data
+# Render Sales data
 ## Technical Stack
-  * D3.js
   * Webcomponent
   * Web dev server
   * Express
-  * Postgresql
-## Install postgresql & nodejs
+## Install nodejs
 **Nodejs & git is assumed to be latest & already installed**
 _Prefer Docker or self installation depending on workstation_
 
@@ -55,10 +53,10 @@ npm run web
 
 #### Optional debug steps
 You can check API connection at 
-http://localhost:3000/api/top5perMonth
-http://localhost:3000/api/top30price
-http://localhost:3000/api/makePercent
-http://localhost:3000/api/avgPrice
+- http://localhost:3000/api/top5perMonth
+- http://localhost:3000/api/top30price
+- http://localhost:3000/api/makePercent
+- http://localhost:3000/api/avgPrice
 
 ### Run test tool
 ```npm
