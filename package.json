@@ -9,10 +9,10 @@
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:api": "npm-run-all api test",
     "coverage": "jest --coverage",
-    "lint:eslint": "eslint --ext .js . --ignore-path .gitignore",
-    "format:eslint": "eslint --ext .js . --fix --ignore-path .gitignore",
-    "lint:prettier": "prettier \"**/*.js\" --check --ignore-path .gitignore",
-    "format:prettier": "prettier \"**/*.js\" --write --ignore-path .gitignore",
+    "lint:eslint": "eslint --ext .mjs . --ignore-path .gitignore",
+    "format:eslint": "eslint --ext .mjs . --fix --ignore-path .gitignore",
+    "lint:prettier": "prettier \"**/*.mjs\" --check --ignore-path .gitignore",
+    "format:prettier": "prettier \"**/*.mjs\" --write --ignore-path .gitignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "format": "npm run format:eslint && npm run format:prettier",
     "dev": "npm-run-all serve",
@@ -35,6 +35,7 @@
     "@babel/cli": "^7.14.5",
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
+    "babel-eslint": "^10.1.0",
     "d3": "^4.0.0",
     "eslint": "^7.29.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -72,6 +73,11 @@
     ],
     "globals": {
       "express": false
+    },
+    "parserOptions": {
+      "parser": "babel-eslint",
+      "ecmaVersion": 2017,
+      "sourceType": "module"
     }
   },
   "prettier": {

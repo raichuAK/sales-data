@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as fs from 'fs'; 
 import * as csv from 'fast-csv';
 
 
@@ -6,7 +6,8 @@ const numberRegex = /^[0-9]*$/;
 const alphaNumericRegex = /^[A-Za-z0-9]+$/;
 
 export async function readContacts() {
-    const fileBuffer = await fs.createReadStream(new URL( '../data_loc/contacts.csv', import.meta.url));
+    /* eslint-disable */
+    const fileBuffer = await fs.createReadStream(new URL( '../data_loc/contacts.csv', import.meta.url)); //eslint-disable-line
     const fileFormatted = await fileBuffer.pipe(csv.parse({ headers: true })
                                                 .validate(row => row.listing_id.match(numberRegex) && row.contact_date.match(numberRegex))
                                                 );

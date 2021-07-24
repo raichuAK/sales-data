@@ -1,10 +1,10 @@
 import express from 'express';
 import BusinessService from '../service/business-service.mjs';
-import { currencyFormatter, avgPriceListFormatter, makePercentFormatter, top5PerMonthFormatter } from './view-data.mjs';
-
+import {
+  currencyFormatter, avgPriceListFormatter, makePercentFormatter, top5PerMonthFormatter,
+} from './view-data.mjs';
 
 const apiRouter = express.Router();
-
 
 apiRouter.get('/avgPrice/', async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
@@ -39,7 +39,7 @@ apiRouter.get('/top30price/', async (req, res) => {
   const bs = new BusinessService();
   const top30price = await bs.getTop30Total();
   const response = currencyFormatter(top30price);
-  res.send({"Average price of top 30": response});
+  res.send({ 'Average price of top 30': response });
 });
 
 apiRouter.get('/top5perMonth/', async (req, res) => {

@@ -6,10 +6,6 @@ export default class DisplayData extends HTMLElement {
     return ['open', '_nodeDescription', '_nameOfNode'];
   }
 
-  constructor() {
-    super();
-  }
-
   attributeChangedCallback(attrName, oldValue, newValue) {
     if (oldValue !== newValue) {
       this[attrName] = this.hasAttribute(attrName);

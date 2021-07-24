@@ -19,7 +19,7 @@ class AppCache {
     if (!this.listingsData) {
       console.warn('Cache is empty');
       this.listingsData = DataReader.readListings();
-    } 
+    }
     return this.listingsData;
   }
 }
