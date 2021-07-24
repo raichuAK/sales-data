@@ -1,10 +1,3 @@
-import convertToTree from '../../lib/convertor.mjs';
-
-async function getTreeData(parentId) {
-  const response = await fetch(`http://localhost:3000/api/parent/${parentId}`);
-  const jsonResp = await response.json();
-  return jsonResp;
-}
 
 async function getAvgPrice() {
   const response = await fetch(`http://localhost:3000/api/avgPrice`);
@@ -31,8 +24,6 @@ async function getTop5PerMonth() {
 }
 
 async function createTree() {
-  const apiData = await getTreeData('all');
-  const hierarchyData = await convertToTree(apiData);
 
   const avgListData = await getAvgPrice();
   let ans1 = document.getElementById('answer1');
