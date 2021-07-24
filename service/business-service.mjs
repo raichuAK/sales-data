@@ -151,13 +151,13 @@ export default BusinessService;
 async function test() {
   const bs = new BusinessService();
   let response = await bs.getAvgPricePerList();
-  console.log('getAvgPricePerList ', response);
+  // console.log('getAvgPricePerList ', response);
 
   response = await bs.getMakePercent();
-  console.log('getMakePercent ', response);
+  // console.log('getMakePercent ', response);
 
   response = await bs.getTop30Total();
-  console.log('getTop30Total ', response);
+  // console.log('getTop30Total ', response);
 
   response = await bs.getTop5PerMonth();
   //console.log('getTop5PerMonth ', JSON.stringify(response));
