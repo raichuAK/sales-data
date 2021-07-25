@@ -18,8 +18,7 @@ export default class DisplayData extends HTMLElement {
     this.appendChild(node);
   }
 
-  disconnectedCallback() {
-  }
+  disconnectedCallback() {}
 }
 
 customElements.get('table-data') || customElements.define('table-data', DisplayData);

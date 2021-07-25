@@ -20,7 +20,7 @@ function numberFormatter(value) {
 export async function avgPriceListFormatter(input) {
   const output = [];
   // eslint-disable-next-line
-  for (const sellerType in input) { 
+  for (const sellerType in input) {
     output.push({
       sellerType,
       avg: currencyFormatter(Math.round(input[sellerType].avg)),
@@ -39,7 +39,7 @@ export async function makePercentFormatter(input) {
     });
   }
   output.sort((a, b) => b.percent - a.percent);
-  output = output.map((elem) => ({
+  output = output.map(elem => ({
     make: elem.make,
     percent: percentFormatter(Math.round(elem.percent)),
   }));
@@ -51,13 +51,21 @@ export async function top5PerMonthFormatter(input) {
   const resultMap = [];
   // eslint-disable-next-line
   for (const monYearMap of input) {
-    const subArray = []; let ranking = 0;
+    const subArray = [];
+    let ranking = 0;
     // eslint-disable-next-line
     for (const contact of monYearMap[1]) {
-      const listing = listingsData.find((elem) => elem.id === contact[0]);
+      const listing = listingsData.find(elem => elem.id === contact[0]);
       if (listing) {
         ranking += 1;
-        subArray.push([ranking, contact[0], listing.make, currencyFormatter(Math.round(listing.price)), `${numberFormatter(listing.mileage)} KM`, contact[1]]);
+        subArray.push([
+          ranking,
+          contact[0],
+          listing.make,
+          currencyFormatter(Math.round(listing.price)),
+          `${numberFormatter(listing.mileage)} KM`,
+          contact[1],
+        ]);
       } else {
         console.warn(`Listing ${contact[0]} not prsent in listings`);
       }

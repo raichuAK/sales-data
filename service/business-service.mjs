@@ -47,8 +47,7 @@ class BusinessService {
 
   async getMakePercent() {
     const listingsData = await Cache.getListingsData();
-    const resultMap = {
-    };
+    const resultMap = {};
     const totalListing = listingsData.length;
     // eslint-disable-next-line
     for (const listing of listingsData) {
@@ -72,7 +71,7 @@ class BusinessService {
 
   async getTop30Total() {
     const contactsData = await Cache.getContactsData();
-    const resultMap = { };
+    const resultMap = {};
     const top30Count = contactsData.length * 0.3;
     // eslint-disable-next-line
     for (const contact of contactsData) {
@@ -86,7 +85,8 @@ class BusinessService {
       }
     }
     const countSorted = await sortByCount(resultMap);
-    const top30listings = []; let countTilltop30 = 0;
+    const top30listings = [];
+    let countTilltop30 = 0;
     // eslint-disable-next-line
     for (const listingCount of countSorted) {
       if (countTilltop30 < top30Count) {
@@ -100,7 +100,7 @@ class BusinessService {
     const listingsData = await Cache.getListingsData();
     // eslint-disable-next-line
     for (const listingId of top30listings) {
-    // eslint-disable-next-line
+      // eslint-disable-next-line
       for (const listing of listingsData) {
         if (listingId === listing.id) {
           top30price += parseInt(listing.price, 10);
@@ -117,7 +117,8 @@ class BusinessService {
     // eslint-disable-next-line
     for (const contact of contactsData) {
       const date = new Date(Number(contact.contact_date));
-      const month = (date.getMonth() + 1) % 10 ? `0${(date.getMonth() + 1)}` : `${(date.getMonth() + 1)}`;
+      const month =
+        (date.getMonth() + 1) % 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
       const monYear = `${month}.${date.getFullYear()}`;
       const prevMonYearVal = monYearMap[monYear];
       if (!prevMonYearVal) {

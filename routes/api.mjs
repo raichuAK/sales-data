@@ -1,7 +1,10 @@
 import express from 'express';
 import BusinessService from '../service/business-service.mjs';
 import {
-  currencyFormatter, avgPriceListFormatter, makePercentFormatter, top5PerMonthFormatter,
+  currencyFormatter,
+  avgPriceListFormatter,
+  makePercentFormatter,
+  top5PerMonthFormatter,
 } from './view-data.mjs';
 
 const apiRouter = express.Router();
