@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as csv from 'fast-csv';
+import debugLog from '../lib/logger.utility.mjs';
 
 const numberRegex = /^[0-9]*$/;
 const alphaNumericRegex = /^[A-Za-z0-9]+$/;
@@ -58,7 +59,7 @@ export async function readListings() {
     csv.parse({ headers: true }).validate(listingValidator),
   );
   fileFormatted.on('data-invalid', (row, rowNumber) =>
-    console.debug(`Invalid [rowNumber=${rowNumber}] [row=${JSON.stringify(row)}]`),
+    debugLog(`Invalid [rowNumber=${rowNumber}] [row=${JSON.stringify(row)}]`),
   );
   const textDecoder = new TextDecoder('utf-8');
   return new Promise(function (resolve, reject) {
@@ -69,12 +70,3 @@ export async function readListings() {
   });
 }
 
-async function test() {
-  const res = await readContacts();
-  console.log('Enteries read ', res);
-
-  const res1 = await readListings();
-  console.log('Enteries read ', res1);
-}
-
-// test();

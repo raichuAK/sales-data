@@ -1,6 +1,8 @@
 import * as DataReader from '../datasource/data-reader.mjs';
+import debugLog from '../lib/logger.utility.mjs';
 
 class AppCache {
+  
   constructor() {
     if (AppCache.instance) {
       AppCache.instance = this;
@@ -10,16 +12,20 @@ class AppCache {
 
   getContactsData() {
     if (!this.contactsData) {
-      console.debug('contactsData Cache is empty');
+      debugLog('contactsData Cache is empty');
       this.contactsData = DataReader.readContacts();
+    }else {
+      debugLog('contactsData Cache is warm');
     }
     return this.contactsData;
   }
 
   getListingsData() {
     if (!this.listingsData) {
-      console.debug('listingsData Cache is empty');
+      debugLog('listingsData Cache is empty');
       this.listingsData = DataReader.readListings();
+    } else {
+      debugLog('listingsData Cache is warm');
     }
     return this.listingsData;
   }

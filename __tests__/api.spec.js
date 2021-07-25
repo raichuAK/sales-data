@@ -25,7 +25,7 @@ describe('API testing', () => {
      const bs = new BusinessService();
   const top30price = await bs.getTop30Total();
   const response = currencyFormatter(top30price);
-      expect(response.length).toBe(10);
+      expect(response.length).toBe(7);
   });
 
   test('should get getTop5PerMonth', async () => {

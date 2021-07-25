@@ -1,6 +1,7 @@
 import express from 'express';
 
 import apiRouter from './api.mjs';
+import debugLog from '../lib/logger.utility.mjs';
 
 // const express = require('express');
 
@@ -15,5 +16,5 @@ apiServer.use('/api', apiRouter);
 
 apiServer.listen(port, () => {
   // eslint-disable-next-line
-  console.log(`API listening at http://localhost:${port}`);
+  debugLog(`API listening at http://localhost:${port}`);
 });

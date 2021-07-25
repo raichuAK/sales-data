@@ -18,8 +18,9 @@
     "dev": "npm-run-all serve",
     "api": "nodemon",
     "web": "web-dev-server --node-resolve --watch --app-index static/view.html --open",
-    "csv-read": "node ./datasource/data-reader.mjs",
-    "query": "node ./service/business-service.mjs"
+    "web:debug": "debugFlag=true web-dev-server --node-resolve --watch --app-index static/view.html --open",
+    "csv-read": "debugFlag=true node ./__tests__/data-reader.exec.mjs",
+    "query": "debugFlag=true node ./__tests__/business-service.exec.mjs"
   },
   "repository": {
     "type": "git",

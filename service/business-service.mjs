@@ -60,10 +60,10 @@ class BusinessService {
     return resultMap;
   }
 
-  async getTop30Total() {
+  async getTop30Total(percent) {
     const contactsData = await Cache.getContactsData();
     const resultMap = {};
-    const top30Count = contactsData.length * 0.3;
+    const top30Count = contactsData.length * percent;
     // eslint-disable-next-line
     for (const contact of contactsData) {
       const prevVal = resultMap[contact.listing_id];
@@ -111,19 +111,3 @@ class BusinessService {
 }
 
 export default BusinessService;
-
-async function test() {
-  const bs = new BusinessService();
-  let response = await bs.getAvgPricePerList();
-  // console.log('getAvgPricePerList ', response);
-
-  response = await bs.getMakePercent();
-  // console.log('getMakePercent ', response);
-
-  response = await bs.getTop30Total();
-  // console.log('getTop30Total ', response);
-  // eslint-disable-next-line
-  response = await bs.getTop5PerMonth();
-   console.log('getTop5PerMonth ', JSON.stringify(response));
-}
-// test();

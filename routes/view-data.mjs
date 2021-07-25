@@ -1,4 +1,5 @@
 import Cache from '../service/app-cache.mjs';
+import debugLog from '../lib/logger.utility.mjs';
 
 export function currencyFormatter(amount) {
   const formatter = new Intl.NumberFormat('nl-NL', {
@@ -67,7 +68,7 @@ export async function top5PerMonthFormatter(input) {
           contact[1],
         ]);
       } else {
-        console.debug(`Listing ${contact[0]} not prsent in listings`);
+        debugLog(`Listing ${contact[0]} not prsent in listings`);
       }
       if (ranking === 5) {
         break;

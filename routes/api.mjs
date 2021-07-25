@@ -7,6 +7,9 @@ import {
   top5PerMonthFormatter,
 } from './view-data.mjs';
 
+
+const DEFAULT_PERCENT = 0.3;
+
 const apiRouter = express.Router();
 
 apiRouter.get('/avgPrice/', async (req, res) => {
@@ -40,7 +43,8 @@ apiRouter.get('/top30price/', async (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   res.type('json');
   const bs = new BusinessService();
-  const top30price = await bs.getTop30Total();
+  const percent = req.params.percent || DEFAULT_PERCENT;
+  const top30price = await bs.getTop30Total(percent);
   const response = currencyFormatter(top30price);
   res.send({ 'Average price of top 30': response });
 });
