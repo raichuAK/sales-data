@@ -13,7 +13,7 @@
       }
       .row {
         margin-top: 5px;
-        margin-bottom: 25px;
+        margin-bottom: 35px;
       }
     </style>
     <link rel="shortcut icon" type="image/jpg" href="tree.jpeg" />
@@ -37,7 +37,28 @@
         <table-data id="answer4"></table-data>
       </div>
     </div>
+    <div class="row">
+      <!-- <form ref='uploadForm' 
+      id='uploadForm'>
+        <input type="file" name="sampleFile" multiple/>
+        <input type='button' value='New CSVs' onclick="uploadFile(event)"/>
+    </form>  -->
+    </div>
     <script type="module" src="./js/view.js"></script>
     <script type="module" src="./display-data.mjs"></script>
+    <script>
+        function uploadFile(event) {
+          let files = document.getElementById('uploadForm').firstElementChild.files;
+          const formData = new FormData();
+          formData.append('csv', files);
+          fetch('http://localhost:3000/api/upload', {
+            method: 'POST',
+            body: formData,
+          })
+          .then(response => response.json()) 
+          .then(json => console.log(json))
+          .catch(err => console.log(err));
+        }
+    </script>
   </body>
 </html>

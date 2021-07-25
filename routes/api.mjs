@@ -60,4 +60,14 @@ apiRouter.get('/top5perMonth/', async (req, res) => {
   res.send(response);
 });
 
+apiRouter.post('/upload/', async (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.type('json');
+  console.log(`files uploaded ${req.body} `);
+  res.send({done: 'uploaded'});
+});
+
 export default apiRouter;

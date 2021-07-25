@@ -2,8 +2,7 @@ import express from 'express';
 
 import apiRouter from './api.mjs';
 import debugLog from '../lib/logger.utility.mjs';
-
-// const express = require('express');
+import fileUpload from 'express-fileupload';
 
 const apiServer = express();
 const port = 3000;
@@ -13,6 +12,7 @@ apiServer.get('/', (req, res) => {
 });
 
 apiServer.use('/api', apiRouter);
+apiServer.use(fileUpload());
 
 apiServer.listen(port, () => {
   // eslint-disable-next-line

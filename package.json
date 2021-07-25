@@ -41,6 +41,7 @@
     "eslint": "^7.29.0",
     "eslint-config-airbnb": "^18.2.1",
     "express": "^4.8.1",
+    "express-fileupload": "^1.2.1",
     "fast-csv": "^4.3.6",
     "lint-staged": "^11.0.0",
     "nodemon": "^2.0.11",
