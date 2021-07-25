@@ -1,59 +1,5 @@
 import Cache from './app-cache.mjs';
-
-async function sortByCount(input) {
-  const sortArray = [];
-  // eslint-disable-next-line
-  for (const listingId in input) {
-    sortArray.push([listingId, input[listingId].count]);
-  }
-  sortArray.sort((a, b) => b[1] - a[1]);
-  return sortArray;
-}
-
-async function createMonthYearMap(contactsData) {
-  const monYearMap = {};
-    // eslint-disable-next-line
-    for (const contact of contactsData) {
-      const date = new Date(Number(contact.contact_date));
-      const month =
-        (date.getMonth() + 1) % 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
-      const monYear = `${month}.${date.getFullYear()}`;
-      const prevMonYearVal = monYearMap[monYear];
-      if (!prevMonYearVal) {
-        monYearMap[monYear] = {
-          [contact.listing_id]: {
-            count: 1,
-          },
-        };
-      } else {
-        const prevListingVal = prevMonYearVal[contact.listing_id];
-        if (!prevListingVal) {
-          monYearMap[monYear][contact.listing_id] = {
-            count: 1,
-          };
-        } else {
-          const newCount = prevListingVal.count + 1;
-          monYearMap[monYear][contact.listing_id] = {
-            count: newCount,
-          };
-        }
-      }
-    }
-  return monYearMap;
-}
-
-async function maptoSortedArray(monYearMap) {
-  const monYearResult = [];
-    // eslint-disable-next-line
-    for (const monYear in monYearMap) {
-      const listingMap = monYearMap[monYear];
-      // eslint-disable-next-line
-      const sortArray = await sortByCount(listingMap);
-      monYearResult.push([monYear, sortArray]);
-    }
-    monYearResult.sort((a, b) => a[0] - b[0]);
-  return monYearResult;
-}
+import * as Utility from './service.utility.mjs';
 
 class BusinessService {
   async getAvgPricePerList() {
@@ -129,7 +75,7 @@ class BusinessService {
         resultMap[contact.listing_id] = newOccurenceCnt;
       }
     }
-    const countSorted = await sortByCount(resultMap);
+    const countSorted = await Utility.sortByCount(resultMap);
     const top30listings = [];
     let countTilltop30 = 0;
     // eslint-disable-next-line
@@ -158,8 +104,8 @@ class BusinessService {
 
   async getTop5PerMonth() {
     const contactsData = await Cache.getContactsData();
-    const monYearMap = await createMonthYearMap(contactsData);
-    const monYearResult = await maptoSortedArray(monYearMap);
+    const monYearMap = await Utility.createMonthYearMap(contactsData);
+    const monYearResult = await Utility.maptoSortedArray(monYearMap);
     return monYearResult;
   }
 }
@@ -180,4 +126,4 @@ async function test() {
   response = await bs.getTop5PerMonth();
    console.log('getTop5PerMonth ', JSON.stringify(response));
 }
-test();
+ test();
