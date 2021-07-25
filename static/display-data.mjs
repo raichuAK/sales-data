@@ -2,9 +2,6 @@ import displayTemplate from './display-data-template.mjs';
 import { createTemplate } from '../lib/templatefactory.mjs';
 
 export default class DisplayData extends HTMLElement {
-  static get observedAttributes() {
-    return ['open', '_nodeDescription', '_nameOfNode'];
-  }
 
   attributeChangedCallback(attrName, oldValue, newValue) {
     if (oldValue !== newValue) {
