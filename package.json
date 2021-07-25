@@ -47,6 +47,7 @@
     "path": "^0.12.7",
     "postgresql-client": "^1.16.7",
     "prettier": "^2.3.2",
+    "renderjson": "^1.4.0",
     "rimraf": "^3.0.2"
   },
   "eslintConfig": {

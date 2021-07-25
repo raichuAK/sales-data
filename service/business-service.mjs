@@ -10,6 +10,51 @@ async function sortByCount(input) {
   return sortArray;
 }
 
+async function createMonthYearMap(contactsData) {
+  const monYearMap = {};
+    // eslint-disable-next-line
+    for (const contact of contactsData) {
+      const date = new Date(Number(contact.contact_date));
+      const month =
+        (date.getMonth() + 1) % 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
+      const monYear = `${month}.${date.getFullYear()}`;
+      const prevMonYearVal = monYearMap[monYear];
+      if (!prevMonYearVal) {
+        monYearMap[monYear] = {
+          [contact.listing_id]: {
+            count: 1,
+          },
+        };
+      } else {
+        const prevListingVal = prevMonYearVal[contact.listing_id];
+        if (!prevListingVal) {
+          monYearMap[monYear][contact.listing_id] = {
+            count: 1,
+          };
+        } else {
+          const newCount = prevListingVal.count + 1;
+          monYearMap[monYear][contact.listing_id] = {
+            count: newCount,
+          };
+        }
+      }
+    }
+  return monYearMap;
+}
+
+async function maptoSortedArray(monYearMap) {
+  const monYearResult = [];
+    // eslint-disable-next-line
+    for (const monYear in monYearMap) {
+      const listingMap = monYearMap[monYear];
+      // eslint-disable-next-line
+      const sortArray = await sortByCount(listingMap);
+      monYearResult.push([monYear, sortArray]);
+    }
+    monYearResult.sort((a, b) => a[0] - b[0]);
+  return monYearResult;
+}
+
 class BusinessService {
   async getAvgPricePerList() {
     const listingsData = await Cache.getListingsData();
@@ -113,43 +158,8 @@ class BusinessService {
 
   async getTop5PerMonth() {
     const contactsData = await Cache.getContactsData();
-    const monYearMap = {};
-    // eslint-disable-next-line
-    for (const contact of contactsData) {
-      const date = new Date(Number(contact.contact_date));
-      const month =
-        (date.getMonth() + 1) % 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
-      const monYear = `${month}.${date.getFullYear()}`;
-      const prevMonYearVal = monYearMap[monYear];
-      if (!prevMonYearVal) {
-        monYearMap[monYear] = {
-          [contact.listing_id]: {
-            count: 1,
-          },
-        };
-      } else {
-        const prevListingVal = prevMonYearVal[contact.listing_id];
-        if (!prevListingVal) {
-          monYearMap[monYear][contact.listing_id] = {
-            count: 1,
-          };
-        } else {
-          const newCount = prevListingVal.count + 1;
-          monYearMap[monYear][contact.listing_id] = {
-            count: newCount,
-          };
-        }
-      }
-    }
-    const monYearResult = [];
-    // eslint-disable-next-line
-    for (const monYear in monYearMap) {
-      const listingMap = monYearMap[monYear];
-      // eslint-disable-next-line
-      const sortArray = await sortByCount(listingMap);
-      monYearResult.push([monYear, sortArray]);
-    }
-    monYearResult.sort((a, b) => a[0] - b[0]);
+    const monYearMap = await createMonthYearMap(contactsData);
+    const monYearResult = await maptoSortedArray(monYearMap);
     return monYearResult;
   }
 }
@@ -168,6 +178,6 @@ async function test() {
   // console.log('getTop30Total ', response);
   // eslint-disable-next-line
   response = await bs.getTop5PerMonth();
-  // console.log('getTop5PerMonth ', JSON.stringify(response));
+   console.log('getTop5PerMonth ', JSON.stringify(response));
 }
 test();
