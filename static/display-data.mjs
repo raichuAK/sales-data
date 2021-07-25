@@ -2,7 +2,6 @@ import displayTemplate from './display-data-template.mjs';
 import { createTemplate } from '../lib/templatefactory.mjs';
 
 export default class DisplayData extends HTMLElement {
-
   attributeChangedCallback(attrName, oldValue, newValue) {
     if (oldValue !== newValue) {
       this[attrName] = this.hasAttribute(attrName);

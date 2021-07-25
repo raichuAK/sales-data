@@ -4,17 +4,42 @@ import * as csv from 'fast-csv';
 const numberRegex = /^[0-9]*$/;
 const alphaNumericRegex = /^[A-Za-z0-9]+$/;
 
+function isNotBlank(input) {
+  return input.trim().length > 0;
+}
+
+function contactValidator(row) {
+  return (
+    isNotBlank(row.listing_id) &&
+    row.listing_id.match(numberRegex) &&
+    isNotBlank(row.contact_date) &&
+    row.contact_date.match(numberRegex)
+  );
+}
+
+function listingValidator(row) {
+  return (
+    isNotBlank(row.id) &&
+    row.id.match(numberRegex) &&
+    isNotBlank(row.price) &&
+    row.price.match(numberRegex) &&
+    isNotBlank(row.mileage) &&
+    row.mileage.match(numberRegex) &&
+    isNotBlank(row.make) &&
+    row.make.match(alphaNumericRegex) &&
+    isNotBlank(row.seller_type) &&
+    row.seller_type.match(alphaNumericRegex)
+  );
+}
+
 export async function readContacts() {
-  /* eslint-disable */
+  //eslint-disable-next-line
   const fileBuffer = await fs.createReadStream(
     new URL('../data_loc/contacts.csv', import.meta.url),
-  ); //eslint-disable-line
-  const fileFormatted = await fileBuffer.pipe(
-    csv
-      .parse({ headers: true })
-      .validate(row => row.listing_id.match(numberRegex) && row.contact_date.match(numberRegex)),
   );
-  // Using the transform function from the formatting stream
+  const fileFormatted = await fileBuffer.pipe(
+    csv.parse({ headers: true }).validate(contactValidator),
+  );
   const textDecoder = new TextDecoder('utf-8');
   return new Promise(function (resolve, reject) {
     const results = [];
@@ -25,25 +50,16 @@ export async function readContacts() {
 }
 
 export async function readListings() {
+  //eslint-disable-next-line
   const fileBuffer = await fs.createReadStream(
     new URL('../data_loc/listings.csv', import.meta.url),
   );
   const fileFormatted = await fileBuffer.pipe(
-    csv
-      .parse({ headers: true })
-      .validate(
-        row =>
-          row.id.match(numberRegex) &&
-          row.price.match(numberRegex) &&
-          row.mileage.match(numberRegex) &&
-          row.make.match(alphaNumericRegex) &&
-          row.seller_type.match(alphaNumericRegex),
-      ),
+    csv.parse({ headers: true }).validate(listingValidator),
   );
   fileFormatted.on('data-invalid', (row, rowNumber) =>
-    console.warn(`Invalid [rowNumber=${rowNumber}] [row=${JSON.stringify(row)}]`),
+    console.debug(`Invalid [rowNumber=${rowNumber}] [row=${JSON.stringify(row)}]`),
   );
-  // Using the transform function from the formatting stream
   const textDecoder = new TextDecoder('utf-8');
   return new Promise(function (resolve, reject) {
     const results = [];
@@ -61,4 +77,4 @@ async function test() {
   console.log('Enteries read ', res1);
 }
 
-// call();
+// test();

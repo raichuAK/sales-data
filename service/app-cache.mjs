@@ -10,6 +10,7 @@ class AppCache {
 
   getContactsData() {
     if (!this.contactsData) {
+      console.debug('contactsData Cache is empty');
       this.contactsData = DataReader.readContacts();
     }
     return this.contactsData;
@@ -17,7 +18,7 @@ class AppCache {
 
   getListingsData() {
     if (!this.listingsData) {
-      console.warn('Cache is empty');
+      console.debug('listingsData Cache is empty');
       this.listingsData = DataReader.readListings();
     }
     return this.listingsData;

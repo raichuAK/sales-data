@@ -8,7 +8,7 @@
     "serve": "node ./routes/index.mjs",
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:api": "npm-run-all api test",
-    "coverage": "jest --coverage",
+    "coverage": "node --experimental-vm-modules node_modules/.bin/jest --coverage",
     "lint:eslint": "eslint --ext .mjs . --ignore-path .gitignore",
     "format:eslint": "eslint --ext .mjs . --fix --ignore-path .gitignore",
     "lint:prettier": "prettier \"**/*.mjs\" --check --ignore-path .gitignore",
@@ -67,7 +67,10 @@
           "no-undef": "off",
           "no-console": "off",
           "no-underscore-dangle": "off",
-          "no-param-reassign": "off"
+          "no-param-reassign": "off",
+          "arrow-parens": "off",
+          "operator-linebreak": "off",
+          "padded-blocks": "off"
         }
       }
     ],

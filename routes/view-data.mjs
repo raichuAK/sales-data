@@ -67,7 +67,7 @@ export async function top5PerMonthFormatter(input) {
           contact[1],
         ]);
       } else {
-        console.warn(`Listing ${contact[0]} not prsent in listings`);
+        console.debug(`Listing ${contact[0]} not prsent in listings`);
       }
       if (ranking === 5) {
         break;
