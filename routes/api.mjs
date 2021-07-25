@@ -7,7 +7,6 @@ import {
   top5PerMonthFormatter,
 } from './view-data.mjs';
 
-
 const DEFAULT_PERCENT = 0.3;
 
 const apiRouter = express.Router();

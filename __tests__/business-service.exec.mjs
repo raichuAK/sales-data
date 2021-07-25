@@ -11,7 +11,7 @@ async function test() {
 
   response = await bs.getTop30Total();
   debugLog('getTop30Total ', response);
-  
+
   response = await bs.getTop5PerMonth();
   debugLog('getTop5PerMonth ', JSON.stringify(response));
 }

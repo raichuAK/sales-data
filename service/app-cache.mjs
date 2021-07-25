@@ -2,7 +2,6 @@ import * as DataReader from '../datasource/data-reader.mjs';
 import debugLog from '../lib/logger.utility.mjs';
 
 class AppCache {
-  
   constructor() {
     if (AppCache.instance) {
       AppCache.instance = this;
@@ -14,7 +13,7 @@ class AppCache {
     if (!this.contactsData) {
       debugLog('contactsData Cache is empty');
       this.contactsData = DataReader.readContacts();
-    }else {
+    } else {
       debugLog('contactsData Cache is warm');
     }
     return this.contactsData;

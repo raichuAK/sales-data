@@ -69,4 +69,3 @@ export async function readListings() {
     fileFormatted.on('end', () => resolve(results));
   });
 }
-
