@@ -8,6 +8,41 @@ export async function sortByCount(input) {
   return sortArray;
 }
 
+export async function contactsCountMap(input) {
+  const resultMap = {};
+  // eslint-disable-next-line
+  for (const contact of input) {
+      const prevVal = resultMap[contact.listing_id];
+
+      if (!prevVal) {
+        resultMap[contact.listing_id] = {
+          count: 1,
+        };
+      } else {
+        const newOccurenceCnt = prevVal.count + 1;
+        resultMap[contact.listing_id] = {
+          count: newOccurenceCnt,
+        };
+      }
+    }
+  return resultMap;
+}
+
+export async function top30Filter(input, count) {
+   const top30listings = [];
+    let countTilltop30 = 0;
+    // eslint-disable-next-line
+    for (const listingCount of input) {
+      if (countTilltop30 < count) {
+        top30listings.push(listingCount[0]);
+        countTilltop30 += listingCount[1];
+      } else {
+        break;
+      }
+    }
+  return top30listings;
+}
+
 export async function createMonthYearMap(contactsData) {
   const monYearMap = {};
   // eslint-disable-next-line

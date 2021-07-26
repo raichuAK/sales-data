@@ -62,35 +62,12 @@ class BusinessService {
 
   async getTop30Total(percent) {
     const contactsData = await Cache.getContactsData();
-    const resultMap = {};
     const top30Count = contactsData.length * percent;
-    // eslint-disable-next-line
-    for (const contact of contactsData) {
-      const prevVal = resultMap[contact.listing_id];
+    
+    const contactsCountMap = await Utility.contactsCountMap(contactsData);
+    const countSorted = await Utility.sortByCount(contactsCountMap);
+    const top30listings = await Utility.top30Filter(countSorted, top30Count);
 
-      if (!prevVal) {
-        resultMap[contact.listing_id] = {
-          count: 1,
-        };
-      } else {
-        const newOccurenceCnt = prevVal.count + 1;
-        resultMap[contact.listing_id] = {
-          count: newOccurenceCnt,
-        };
-      }
-    }
-    const countSorted = await Utility.sortByCount(resultMap);
-    const top30listings = [];
-    let countTilltop30 = 0;
-    // eslint-disable-next-line
-    for (const listingCount of countSorted) {
-      if (countTilltop30 < top30Count) {
-        top30listings.push(listingCount[0]);
-        countTilltop30 += listingCount[1];
-      } else {
-        break;
-      }
-    }
     let top30price = 0;
     const listingsData = await Cache.getListingsData();
     // eslint-disable-next-line
