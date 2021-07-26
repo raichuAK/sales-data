@@ -69,10 +69,14 @@ class BusinessService {
       const prevVal = resultMap[contact.listing_id];
 
       if (!prevVal) {
-        resultMap[contact.listing_id] = 1;
+        resultMap[contact.listing_id] = {
+          count: 1,
+        };
       } else {
-        const newOccurenceCnt = prevVal + 1;
-        resultMap[contact.listing_id] = newOccurenceCnt;
+        const newOccurenceCnt = prevVal.count + 1;
+        resultMap[contact.listing_id] = {
+          count: newOccurenceCnt,
+        };
       }
     }
     const countSorted = await Utility.sortByCount(resultMap);

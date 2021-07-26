@@ -19,8 +19,8 @@
     "api": "nodemon",
     "web": "web-dev-server --node-resolve --watch --app-index static/view.html --open",
     "web:debug": "debugFlag=true web-dev-server --node-resolve --watch --app-index static/view.html --open",
-    "csv-read": "debugFlag=true node ./__tests__/data-reader.exec.mjs",
-    "query": "debugFlag=true node ./__tests__/business-service.exec.mjs"
+    "csv-read": "debugFlag=true node ./__tests__/service.exec.mjs reader",
+    "query": "debugFlag=true node ./__tests__/service.exec.mjs service"
   },
   "repository": {
     "type": "git",
